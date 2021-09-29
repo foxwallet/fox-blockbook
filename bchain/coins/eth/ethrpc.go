@@ -380,6 +380,14 @@ func (b *EthereumRPC) getBestHeader() (*ethtypes.Header, error) {
 			b.bestHeader = nil
 			return nil, err
 		}
+		if b.bestHeader.Number.Uint64() == 0 {
+			sp, err := b.client.SyncProgress(ctx)
+			if err != nil {
+				b.bestHeader = nil
+				return nil, err
+			}
+			b.bestHeader.Number = new(big.Int).SetUint64(sp.HighestBlock)
+		}
 		b.bestHeaderTime = time.Now()
 	}
 	return b.bestHeader, nil
