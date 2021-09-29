@@ -386,7 +386,7 @@ func (b *EthereumRPC) getBestHeader() (*ethtypes.Header, error) {
 				b.bestHeader = nil
 				return nil, err
 			}
-			b.bestHeader.Number = new(big.Int).SetUint64(sp.HighestBlock)
+			b.bestHeader.Number = new(big.Int).SetUint64(sp.CurrentBlock)
 		}
 		b.bestHeaderTime = time.Now()
 	}
