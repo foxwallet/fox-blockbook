@@ -331,7 +331,7 @@ func (s *PublicServer) newTemplateData() *TemplateData {
 		CoinShortcut:     s.is.CoinShortcut,
 		CoinLabel:        s.is.CoinLabel,
 		ChainType:        s.chainParser.GetChainType(),
-		InternalExplorer: s.internalExplorer && !s.is.InitialSync,
+		InternalExplorer: s.internalExplorer,
 		TOSLink:          api.Text.TOSLink,
 	}
 }
