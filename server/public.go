@@ -131,6 +131,7 @@ func (s *PublicServer) ConnectFullPublicInterface() {
 	// support for test pages
 	serveMux.Handle(path+"test-socketio.html", http.FileServer(http.Dir("./static/")))
 	serveMux.Handle(path+"test-websocket.html", http.FileServer(http.Dir("./static/")))
+	serveMux.Handle(path+"robots.txt", http.FileServer(http.Dir("./static/")))
 	if s.internalExplorer {
 		// internal explorer handlers
 		serveMux.HandleFunc(path+"tx/", s.htmlTemplateHandler(s.explorerTx))
