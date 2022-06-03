@@ -2,6 +2,7 @@ package bsc
 
 import (
 	"encoding/hex"
+	"github.com/trezor/blockbook/bchain/coins/eth"
 	"math/big"
 	"strconv"
 
@@ -477,21 +478,14 @@ type TxStatus int
 
 // statuses of transaction
 const (
-	TxStatusUnknown = TxStatus(iota - 2)
-	TxStatusPending
-	TxStatusFailure
-	TxStatusOK
+	TxStatusUnknown = eth.TxStatusUnknown
+	TxStatusPending = eth.TxStatusPending
+	TxStatusFailure = eth.TxStatusFailure
+	TxStatusOK      = eth.TxStatusOK
 )
 
 // EthereumTxData contains ethereum specific transaction data
-type EthereumTxData struct {
-	Status   TxStatus `json:"status"` // 1 OK, 0 Fail, -1 pending, -2 unknown
-	Nonce    uint64   `json:"nonce"`
-	GasLimit *big.Int `json:"gaslimit"`
-	GasUsed  *big.Int `json:"gasused"`
-	GasPrice *big.Int `json:"gasprice"`
-	Data     string   `json:"data"`
-}
+type EthereumTxData = eth.EthereumTxData
 
 // GetEthereumTxData returns EthereumTxData from bchain.Tx
 func GetEthereumTxData(tx *bchain.Tx) *EthereumTxData {

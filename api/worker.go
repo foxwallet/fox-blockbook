@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/trezor/blockbook/bchain/coins/bsc"
 	"math"
 	"math/big"
 	"os"
@@ -260,7 +261,13 @@ func (w *Worker) GetTransactionFromBchainTx(bchainTx *bchain.Tx, height int, spe
 			glog.Errorf("GetErc20FromTx error %v, %v", err, bchainTx)
 		}
 		tokens = w.getTokensFromErc20(ets)
-		ethTxData := eth.GetEthereumTxData(bchainTx)
+		var ethTxData *eth.EthereumTxData
+		if w.chain.GetCoinName() == "BSC" {
+			ethTxData = bsc.GetEthereumTxData(bchainTx)
+		} else {
+			ethTxData = eth.GetEthereumTxData(bchainTx)
+		}
+
 		// mempool txs do not have fees yet
 		if ethTxData.GasUsed != nil {
 			feesSat.Mul(ethTxData.GasPrice, ethTxData.GasUsed)
